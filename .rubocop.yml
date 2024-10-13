@@ -1,0 +1,17 @@
+# .rubocop.yml
+# Style/EmptyLinesAroundBody:
+#   Enabled: false
+Style/StringLiterals:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines
+
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
