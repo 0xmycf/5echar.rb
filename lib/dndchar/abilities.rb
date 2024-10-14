@@ -124,7 +124,7 @@ class Spell < DndAbility
 
     dur = duration_obj["duration"]
     num = dur['amount']
-    ret = "#{num} #{dur['hour']}"
+    ret = "#{num} #{dur['type']}"
     ret += "s" if num > 1
     ret
   end
