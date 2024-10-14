@@ -32,7 +32,7 @@ class Char
     # @type [Integer]
     @level = options[:level]
     # @type [String]
-    @sublclass = options[:sublclass]
+    @subclass = options[:subclass]
     # @type [String]
     @background = options[:background]
     # @type [Array<String>]

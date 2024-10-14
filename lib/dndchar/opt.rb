@@ -51,7 +51,7 @@ module Options
         @options[:class_] = class_
       end
 
-      opts.on("--level LEVEL", "Set the level for the character") do |level|
+      opts.on("--level LEVEL", Integer, "Set the level for the character") do |level|
         @options[:level] = level
       end
 
@@ -75,7 +75,7 @@ module Options
         @options[:roll_attributes] = attrs
       end
 
-      opts.on("--feats FEATS", "Set the feats for the character") do |feats|
+      opts.on("--feats FEATS", "Add additional feats for the character (class Feats are automatically added)") do |feats|
         @options[:feats] = parse_list(feats)
       end
 

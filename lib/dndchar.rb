@@ -14,11 +14,15 @@ module Dndchar
 
   def self.run
     opts = Options.parse
-    puts opts
+    # puts opts
     char = Char.new(opts)
     builder = IntermediaryBuilder.new(char)
 
-    puts builder.build
+    intermediate = builder.build
+    puts JSON.pretty_generate(intermediate.json)
+    puts "---"
+    typst_spell = intermediate.json[:spells].first.to_typst
+    Pathname.new("/tmp/spell.typst").write typst_spell
   end
 
 end
