@@ -2,7 +2,7 @@
 
 require_relative 'autojson'
 
-#  A basic dnd char.
+#  A basic char.
 #  The Character can be serialzed to json or pdf
 class Char
 
@@ -66,7 +66,7 @@ end
 
 # Has attributes :clazz and :subclass
 # Sadly there is no solargraph completion for this
-DndClass = Struct.new(:clazz, :subclass)
+FiveeClass = Struct.new(:clazz, :subclass)
 
 # A simple die with sides and optional keep highest and lowest
 class Die

@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require_relative "lib/dndchar/version"
+require_relative "lib/fiveechar/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "dndchar"
-  spec.version = Dndchar::VERSION
+  spec.name = "5echar"
+  spec.version = FiveeChar::VERSION
   spec.authors = ["0xmycf"]
   spec.email = ["mycf.mycf.mycf@gmail.com"]
 
-  spec.summary = "Manage simple DnD Characters and create sheet cheets as pdf for all of their abilities."
-  spec.homepage = "https://www.github.com/0xmycf/dndchar"
+  spec.summary = "Manage simple 5e Characters and create sheet cheets as pdf for all of their abilities."
+  spec.homepage = "https://www.github.com/0xmycf/5echar"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.4"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://www.github.com/0xmycf/dndchar"
-  spec.metadata["changelog_uri"] = "https://www.github.com/0xmycf/dndchar/todo"
+  spec.metadata["source_code_uri"] = "https://www.github.com/0xmycf/5echar"
+  spec.metadata["changelog_uri"] = "https://www.github.com/0xmycf/5echar/todo"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

@@ -4,7 +4,7 @@ require 'optparse'
 
 # Example usage:
 #
-# dndchar \
+# fiveechar \
 # --name "MyRanger" \
 # --class Ranger \
 # --subclass "Beast Master" \
@@ -40,7 +40,7 @@ module Options
 
   def self.parse
     OptionParser.new do |opts|
-      opts.banner = "Usage: dndchar [options]"
+      opts.banner = "Usage: fiveechar [options]"
 
       opts.on("--name NAME", "Set the name for the character") do |name|
         @options[:name] = name

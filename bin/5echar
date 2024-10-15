@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require "bundler/setup"
-require "dndchar"
+require "fiveechar"
 
-Dndchar.run
+FiveeChar.run

@@ -2,10 +2,10 @@
 
 require "test_helper"
 
-class TestDndchar < Minitest::Test
+class Test5eChar < Minitest::Test
 
   def test_that_it_has_a_version_number
-    refute_nil ::Dndchar::VERSION
+    refute_nil ::FiveeChar::VERSION
   end
 
 end

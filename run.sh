@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-bundle exec bin/dndchar \
+bundle exec bin/5echar \
   --name "Fighter McFight Fight" \
   --level 3 \
   --class Fighter \

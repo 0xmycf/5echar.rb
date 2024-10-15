@@ -49,10 +49,10 @@ class FeatReader < Reader
   def find(name)
     proc = proc { |obj| obj["name"].match?(/#{name}/i) }
     ret = @feats.find(&proc)
-    return Feat.new ret["name"], DndAbility.discription(ret["entries"]) unless ret.nil?
+    return Feat.new ret["name"], Abilitiy.discription(ret["entries"]) unless ret.nil?
 
     ft = @class_feats.find(&proc)
-    Feat.new ft["name"], DndAbility.discription(ft["entries"])
+    Feat.new ft["name"], Abilitiy.discription(ft["entries"])
   end
 
   private

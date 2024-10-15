@@ -2,9 +2,9 @@
 
 require_relative 'autojson'
 
-# Something like a Feat or a Spell in the Dnd World
+# Something like a Feat or a Spell in the World
 # this is something we render in the typst code later on.
-class DndAbility
+class Abilitiy
 
   def initialize(name, discription)
     @name = name
@@ -53,8 +53,8 @@ class DndAbility
 
 end
 
-# A dnd feat
-class Feat < DndAbility
+# A feat
+class Feat < Abilitiy
 
   include JSONable
 
@@ -84,8 +84,8 @@ class BackgroundFeat < Feat
 
 end
 
-# A dnd spell
-class Spell < DndAbility
+# A spell
+class Spell < Abilitiy
 
   include JSONable
 

@@ -16,12 +16,12 @@ class IntermediaryBuilder
     # @type [Char]
     @char = char
     @json = {
-      dndchar_class: {
+      fiveechar_class: {
         date: Time.now,
         char:
       },
       name: char.name,
-      clazz: DndClass.new(char.class_, char.subclass),
+      clazz: FiveeClass.new(char.class_, char.subclass),
       level: char.level,
       feats: [],
       spells: []
@@ -138,8 +138,8 @@ class Intermediary
   # end
 
   # @return [Hash] Hash with keys :date (Time.now result) and :char (Hash)
-  def dndchar_class
-    @json[:dndchar_class]
+  def fiveechar_class
+    @json[:fiveechar_class]
   end
 
   # @return [String] The name of the char
@@ -147,7 +147,7 @@ class Intermediary
     @json[:name]
   end
 
-  # @return [DndClass] The class of the char
+  # @return [FiveeClass] The class of the char
   def clazz
     @json[:clazz]
   end

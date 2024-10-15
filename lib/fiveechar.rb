@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_relative "dndchar/version"
-require_relative "dndchar/opt"
-require_relative 'dndchar/intermediary_builder'
-require_relative 'dndchar/char'
-require_relative 'dndchar/writer'
+require_relative "fiveechar/version"
+require_relative "fiveechar/opt"
+require_relative 'fiveechar/intermediary_builder'
+require_relative 'fiveechar/char'
+require_relative 'fiveechar/writer'
 
 require 'json'
 
-# Main module for the Dndchar gem
-module Dndchar
+# Main module for the 5echar gem
+module FiveeChar
 
   class Error < StandardError; end
 
