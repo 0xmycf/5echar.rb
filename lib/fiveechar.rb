@@ -35,7 +35,7 @@ module FiveeChar
       tmpfile.write(typst)
       tmpfile.rewind
       args = ["typst", "compile", tmpfile.path, path.to_path]
-      system args.join(' ')
+      system args.join(' '), exception: true
     end
 
   end

@@ -20,9 +20,9 @@
     in {
     devShell = pkgs.mkShellNoCC {
         packages = with pkgs; [
-          gems
           solargraph
           ruby_3_2
+          typst
         ];
       };
 
@@ -30,7 +30,7 @@
       defaultPackage = pkgs.stdenv.mkDerivation {
         name = "5echar";
         src = ./.;
-        buildInputs = [ gems gems.wrappedRuby ];
+        buildInputs = [ gems gems.wrappedRuby pkgs.typst ];
         installPhase = ''
           mkdir -p $out
           cp -r $src $out
