@@ -26,13 +26,6 @@ class Reader
     names.map { |n| find n }
   end
 
-  private
-
-  def _filter_feats(&)
-    @feats = @feats.filter(&) if block_given?
-    @class_feats = @class_feats.filter(&) if block_given?
-  end
-
 end
 
 # The FeatReader reads the feats from
@@ -62,6 +55,13 @@ class FeatReader < Reader
     Feat.new ft["name"], DndAbility.discription(ft["entries"])
   end
 
+  private
+
+  def _filter_feats(&)
+    @feats = @feats.filter(&) if block_given?
+    @class_feats = @class_feats.filter(&) if block_given?
+  end
+
 end
 
 # Find spells with this
@@ -81,6 +81,53 @@ class SpellReader < Reader
     raise "Spell #{name} not found" if spell.nil?
 
     Spell.new spell
+  end
+
+end
+
+# Reads the Feat from the backgrounds
+class BackgroundReader < Reader
+
+  # @param [Pathname] path. The path to the background json
+  # @param [Pathname] feat_reader_path. The path that is used by an internal FeatReader
+  # @param [Block] the block should be filter.
+  # The filter will be applied to the names of the backgrounds
+  def initialize(path, feat_reader_path, &filtering)
+    super()
+    # @type [Array<Hash>]
+    @backgrounds = JSON.parse(path.read)["background"].filter(&filtering)
+    @frpath = feat_reader_path
+    @filtering = filtering
+  end
+
+  # @return [Array<BackgroundFeat>]
+  def find(name)
+    bg = @backgrounds.find { |bg_json| bg_json["name"].match?(/#{name}/i) }
+    feat_names = find_feats bg
+    feat_reader = FeatReader.new @frpath, [], &@filtering
+    feats = feat_reader.find_many(feat_names)
+    (0..feat_names.size - 1).map do |i|
+      BackgroundFeat.from_feat feats[i], feat_names[i]
+    end
+  end
+
+  private
+
+  # @return [MatchData]
+  # The first element of the MatchData is the name of the feat in lowercase
+  # The second element of the MatchData is the name of the source
+  def feat_match(entry)
+    entry.match(/([a-zA-Z ]+)\|([a-z]+)/)
+  end
+
+  # @return [Array<String>]
+  def find_feats(bg)
+    # @type [Array<Hash>]
+    feats = bg["feats"]
+    feats.flat_map { |hash| hash.filter { |_, v| v }.keys }
+         .map { |str| feat_match(str) }
+         .filter { |match_data| match_data[2].match?(/xphb/i) }
+         .map { |match_data| match_data[1] }
   end
 
 end

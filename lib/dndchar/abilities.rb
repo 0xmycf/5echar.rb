@@ -62,6 +62,28 @@ class Feat < DndAbility
 
 end
 
+# A Feat from the Background,
+# it extends the normal feat by holding a reference to the
+# Background and renders it to the typst code too
+class BackgroundFeat < Feat
+
+  def initialize(name, discription, background)
+    super(name, discription)
+    @background = background
+  end
+
+  # @param [Feat] feat. The feat we extend on
+  # @param [String] bg_name. the name of the background
+  def self.from_feat(feat, bg_name)
+    BackgroundFeat.new feat.name, feat.discription, bg_name
+  end
+
+  def render_header
+    "= #{@name} (#{background})"
+  end
+
+end
+
 # A dnd spell
 class Spell < DndAbility
 

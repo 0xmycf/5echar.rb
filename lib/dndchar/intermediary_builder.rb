@@ -33,6 +33,8 @@ class IntermediaryBuilder
     @feats = @source / "feats.json" # the feats file
     # @type [Pathname]
     @spells = @source / "spells" / "spells-xphb.json"
+    # @type [Pathname]
+    @backgrounds = @source / "backgrounds.json"
   end
 
   # path = Path("./data/")
@@ -40,7 +42,7 @@ class IntermediaryBuilder
   # to_find = "fighter"
   def build
     cc = class_content
-    @json[:feats] = feats(cc) + other_feats
+    @json[:feats] = feats(cc) + other_feats + background_feats
     @json[:spells] = spells
 
     ret = Intermediary.new
@@ -102,7 +104,12 @@ class IntermediaryBuilder
   # @return [Array<Feat>]
   def other_feats
     feat_reader = FeatReader.new(@feats, [], &Reader.method(:xphb_filter))
-     feat_reader.find_many(@char.feats)
+    feat_reader.find_many(@char.feats)
+  end
+
+  def background_feats
+    backgrond_feat_reader = BackgroundReader.new @backgrounds, @feats, &Reader.method(:xphb_filter)
+    backgrond_feat_reader.find(@char.background)
   end
 
   # @return [Array<Spell>]

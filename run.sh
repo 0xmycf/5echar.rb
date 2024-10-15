@@ -5,7 +5,7 @@ bundle exec bin/dndchar \
   --level 3 \
   --class Fighter \
   --subclass "Champion" \
-  --background "Acolyte" \
+  --background "Soldier" \
   --spells "Druidcraft" \
   --attributes "10, 10, 10, 10, 10, 10" \
   --feats "Brawler, Magic Initiate, Archery" \
