@@ -1,26 +1,42 @@
 {
-  description = "A Nix-flake-based Ruby development environment";
+  description = "ruby stuff";
 
   inputs.nixpkgs.url =  "github:nixos/nixpkgs/nixos-unstable";
+  inputs.utils.url = "github:numtide/flake-utils";
 
   outputs = {
     self,
     nixpkgs,
-  }: let
-    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
-    forEachSupportedSystem = f:
-      nixpkgs.lib.genAttrs supportedSystems (system:
-        f {
-          pkgs = import nixpkgs {inherit system;};
-        });
-  in {
-    devShells = forEachSupportedSystem ({pkgs}: {
-      default = pkgs.mkShell {
+    utils,
+  }: utils.lib.eachDefaultSystem (system: 
+    let
+    pkgs = nixpkgs.legacyPackages.${system};
+    ruby = pkgs.ruby_3_2;
+    gems = pkgs.bundlerEnv {
+      name = "5echar";
+      inherit ruby;
+      gemdir = ./.;
+    };
+    in {
+    devShell = pkgs.mkShellNoCC {
         packages = with pkgs; [
+          gems
           solargraph
           ruby_3_2
         ];
       };
+
+      # This doesnt work so dont try to use it
+      defaultPackage = pkgs.stdenv.mkDerivation {
+        name = "5echar";
+        src = ./.;
+        buildInputs = [ gems gems.wrappedRuby ];
+        installPhase = ''
+          mkdir -p $out
+          cp -r $src $out
+          mkdir $out/bin
+        '';
+      };
+
     });
-  };
 }
