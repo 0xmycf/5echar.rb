@@ -105,9 +105,8 @@ class BackgroundReader < Reader
     bg = @backgrounds.find { |bg_json| bg_json["name"].match?(/#{name}/i) }
     feat_names = find_feats bg
     feat_reader = FeatReader.new @frpath, [], &@filtering
-    feats = feat_reader.find_many(feat_names)
-    (0..feat_names.size - 1).map do |i|
-      BackgroundFeat.from_feat feats[i], feat_names[i]
+    feat_reader.find_many(feat_names).map do |feat|
+      BackgroundFeat.from_feat feat, name
     end
   end
 
