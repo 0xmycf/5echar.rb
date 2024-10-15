@@ -79,7 +79,7 @@ class BackgroundFeat < Feat
   end
 
   def render_header
-    "= #{@name} (#{background})"
+    "= #{@name} (#{@background})"
   end
 
 end

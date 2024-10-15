@@ -64,6 +64,10 @@ class Char
 
 end
 
+# Has attributes :clazz and :subclass
+# Sadly there is no solargraph completion for this
+DndClass = Struct.new(:clazz, :subclass)
+
 # A simple die with sides and optional keep highest and lowest
 class Die
 

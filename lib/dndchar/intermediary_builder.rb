@@ -21,6 +21,7 @@ class IntermediaryBuilder
         char:
       },
       name: char.name,
+      clazz: DndClass.new(char.class_, char.subclass),
       level: char.level,
       feats: [],
       spells: []
@@ -45,9 +46,7 @@ class IntermediaryBuilder
     @json[:feats] = feats(cc) + other_feats + background_feats
     @json[:spells] = spells
 
-    ret = Intermediary.new
-    ret.json = @json
-    ret
+    Intermediary.new @json
   end
 
   private
@@ -118,21 +117,54 @@ class IntermediaryBuilder
     spell_reader.find_many(@char.spells)
   end
 
-  # The intermediary representation of the json
-  class Intermediary
+end
 
-    attr_reader :json
+# The intermediary representation of the json
+class Intermediary
 
-    def json=(new_value)
-      # @type [Hash] json
-      @json = new_value
+  attr_accessor :json
 
-      # @param [String] key
-      @json.each_key do |key|
-        Intermediary.define_method(key.to_sym) { @json[key] }
-      end
-    end
+  def initialize(json)
+    @json = json
+  end
 
+  # Some problems with this:
+  # 1. Didnt work well
+  # 2. No autocomplete
+  #
+  # # @param [String] key
+  # @json.each_key do |key|
+  #   Intermediary.define_method(key.to_sym) { @json[key] }
+  # end
+
+  # @return [Hash] Hash with keys :date (Time.now result) and :char (Hash)
+  def dndchar_class
+    @json[:dndchar_class]
+  end
+
+  # @return [String] The name of the char
+  def name
+    @json[:name]
+  end
+
+  # @return [DndClass] The class of the char
+  def clazz
+    @json[:clazz]
+  end
+
+  # @return [Integer] The level of the char
+  def level
+    @json[:level]
+  end
+
+  # @return [Array<Feat>] The feats
+  def feats
+    @json[:feats]
+  end
+
+  # @return [Array<Spell>] The spell
+  def spells
+    @json[:spells]
   end
 
 end

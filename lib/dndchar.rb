@@ -4,6 +4,7 @@ require_relative "dndchar/version"
 require_relative "dndchar/opt"
 require_relative 'dndchar/intermediary_builder'
 require_relative 'dndchar/char'
+require_relative 'dndchar/writer'
 
 require 'json'
 
@@ -19,10 +20,9 @@ module Dndchar
     builder = IntermediaryBuilder.new(char)
 
     intermediate = builder.build
-    puts JSON.pretty_generate(intermediate.json)
-    puts "---"
-    typst_spell = intermediate.json[:spells].first.to_typst
-    Pathname.new("/tmp/spell.typst").write typst_spell
+    writer = TypstWriter.new intermediate
+    typst = writer.write
+    Pathname.new("/tmp/thing.typst").write typst
   end
 
 end
