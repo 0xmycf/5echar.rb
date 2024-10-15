@@ -18,7 +18,7 @@ class IntermediaryBuilder
     @json = {
       fiveechar_class: {
         date: Time.now,
-        char:
+        char: char
       },
       name: char.name,
       clazz: FiveeClass.new(char.class_, char.subclass),
@@ -38,9 +38,6 @@ class IntermediaryBuilder
     @backgrounds = @source / "backgrounds.json"
   end
 
-  # path = Path("./data/")
-  # classes = path / "class"
-  # to_find = "fighter"
   def build
     cc = class_content
     @json[:feats] = feats(cc) + other_feats + background_feats

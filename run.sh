@@ -9,4 +9,4 @@ bundle exec bin/5echar \
   --spells "Druidcraft" \
   --attributes "10, 10, 10, 10, 10, 10" \
   --feats "Brawler, Magic Initiate, Archery" \
-  --to-pdf MyRanger.pdf
+  --to-pdf /tmp/MyRanger.pdf

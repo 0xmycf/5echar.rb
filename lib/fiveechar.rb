@@ -6,7 +6,7 @@ require_relative 'fiveechar/intermediary_builder'
 require_relative 'fiveechar/char'
 require_relative 'fiveechar/writer'
 
-require 'json'
+require 'tempfile'
 
 # Main module for the 5echar gem
 module FiveeChar
@@ -20,9 +20,24 @@ module FiveeChar
     builder = IntermediaryBuilder.new(char)
 
     intermediate = builder.build
-    writer = TypstWriter.new intermediate
-    typst = writer.write
-    Pathname.new("/tmp/thing.typst").write typst
+
+    if opts[:to_json]
+      path = Pathname.new opts[:to_json]
+      raise "Path #{path} already exists" if path.exist?
+
+      path.write  JSON.pretty_generate(intermediate.json)
+    elsif opts[:to_pdf]
+      path = Pathname.new opts[:to_pdf]
+      raise "Path #{path} already exists" if path.exist?
+
+      typst = TypstWriter.new(intermediate).write
+      tmpfile = Tempfile.new("#{opts[:name]}-5echar")
+      tmpfile.write(typst)
+      tmpfile.rewind
+      args = ["typst", "compile", tmpfile.path, path.to_path]
+      system args.join(' ')
+    end
+
   end
 
 end
