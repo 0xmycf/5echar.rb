@@ -38,6 +38,8 @@ class Abilitiy
   # @return [String]
   def self.discription(entries_obj)
     ret = []
+    return "" if entries_obj.nil? || entries_obj.empty?
+
     entries_obj.each do |entry|
       case entry
       when Hash

@@ -47,7 +47,7 @@ class FeatReader < Reader
   # Till search the general Feates before it will search through the class feats
   # @return [Feat]
   def find(name)
-    proc = proc { |obj| obj["name"].match?(/#{name}/i) }
+    proc = proc { |obj| obj["name"].match?(/^#{name}/i) }
     ret = @feats.find(&proc)
     return Feat.new ret["name"], Abilitiy.discription(ret["entries"]) unless ret.nil?
 
@@ -77,7 +77,7 @@ class SpellReader < Reader
   # Find a spell by 'name'
   # @return [Spell]
   def find(name)
-    spell = @json.find { |spell_json| spell_json["name"].match?(/#{name}/i) }
+    spell = @json.find { |spell_json| spell_json["name"].match?(/^#{name}/i) }
     raise "Spell #{name} not found" if spell.nil?
 
     Spell.new spell
@@ -102,7 +102,7 @@ class BackgroundReader < Reader
 
   # @return [Array<BackgroundFeat>]
   def find(name)
-    bg = @backgrounds.find { |bg_json| bg_json["name"].match?(/#{name}/i) }
+    bg = @backgrounds.find { |bg_json| bg_json["name"].match?(/^#{name}/i) }
     feat_names = find_feats bg
     feat_reader = FeatReader.new @frpath, [], &@filtering
     feat_reader.find_many(feat_names).map do |feat|
