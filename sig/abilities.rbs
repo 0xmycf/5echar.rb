@@ -1,0 +1,45 @@
+class Ability
+  @description: String
+  @description: String
+  @name: String
+
+  def self.description: (Array[Hash[String, String] | String] entries_obj) -> String
+                      | (nil) -> String
+
+  def in_box: (String content) -> String
+
+  def render_header: -> String
+
+  def to_typst: -> String
+end
+
+class Feat < Ability
+  attr_reader description: String
+  attr_reader name: String
+end
+
+class BackgroundFeat < Feat
+  @background: String
+
+  def self.from_feat: -> untyped
+end
+
+class Spell < Ability
+  @casting_time: untyped
+  @components: untyped
+  @concentration: untyped
+  @duration: untyped
+  @level: untyped
+
+  def self.casting_time: -> untyped
+
+  def self.components: -> untyped
+
+  def self.concentration: -> untyped
+
+  def self.duration: -> untyped
+
+  def self.range: -> untyped
+
+  def render_level: -> untyped
+end

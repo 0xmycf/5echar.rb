@@ -4,11 +4,11 @@ require_relative 'autojson'
 
 # Something like a Feat or a Spell in the World
 # this is something we render in the typst code later on.
-class Abilitiy
+class Ability
 
-  def initialize(name, discription)
+  def initialize(name, description)
     @name = name
-    @discription = discription
+    @description = description
   end
 
   def render_header
@@ -31,19 +31,19 @@ class Abilitiy
   end
 
   def to_typst
-    in_box @discription
+    in_box @description
   end
 
   # @param [Hash] something like [ "A fluff of wind", {"type": "entries", "name": "my name", "entries": ["same thing"] ]
   # @return [String]
-  def self.discription(entries_obj)
+  def self.description(entries_obj)
     ret = []
     return "" if entries_obj.nil? || entries_obj.empty?
 
     entries_obj.each do |entry|
       case entry
       when Hash
-        ret << "*#{entry['name']}* #{discription(entry['entries'])}"
+        ret << "*#{entry['name']}* #{description(entry['entries'])}"
       when String
         ret << entry
       else
@@ -56,11 +56,11 @@ class Abilitiy
 end
 
 # A feat
-class Feat < Abilitiy
+class Feat < Ability
 
   include JSONable
 
-  attr_reader :name, :discription
+  attr_reader :name, :description
 
 end
 
@@ -69,15 +69,15 @@ end
 # Background and renders it to the typst code too
 class BackgroundFeat < Feat
 
-  def initialize(name, discription, background)
-    super(name, discription)
+  def initialize(name, description, background)
+    super(name, description)
     @background = background
   end
 
   # @param [Feat] feat. The feat we extend on
   # @param [String] bg_name. the name of the background
   def self.from_feat(feat, bg_name)
-    BackgroundFeat.new feat.name, feat.discription, bg_name
+    BackgroundFeat.new feat.name, feat.description, bg_name
   end
 
   def render_header
@@ -87,12 +87,12 @@ class BackgroundFeat < Feat
 end
 
 # A spell
-class Spell < Abilitiy
+class Spell < Ability
 
   include JSONable
 
   def initialize(spell_json_obj)
-    super spell_json_obj["name"], Spell.discription(spell_json_obj["entries"])
+    super spell_json_obj["name"], Spell.description(spell_json_obj["entries"])
     @level = spell_json_obj["level"]
     @casting_time = Spell.casting_time(spell_json_obj["time"].first) # is the first call sus?
     @range = Spell.range(spell_json_obj["range"])

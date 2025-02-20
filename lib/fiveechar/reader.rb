@@ -49,10 +49,13 @@ class FeatReader < Reader
   def find(name)
     proc = proc { |obj| obj["name"].match?(/^#{name}/i) }
     ret = @feats.find(&proc)
-    return Feat.new ret["name"], Abilitiy.discription(ret["entries"]) unless ret.nil?
+    return Feat.new ret["name"], Ability.description(ret["entries"]) unless ret.nil?
 
     ft = @class_feats.find(&proc)
-    Feat.new ft["name"], Abilitiy.discription(ft["entries"])
+    if ft.nil?
+      puts "You probably passed in a name (#{name}) which is not available"
+    end
+    Feat.new ft["name"], Ability.description(ft["entries"])
   end
 
   private
