@@ -42,6 +42,10 @@ module Options
     OptionParser.new do |opts|
       opts.banner = "Usage: fiveechar [options]"
 
+      opts.on("--override", "Override the pdf/json file if one exists") do
+        @options[:override] = true
+      end
+
       opts.on("--name NAME", "Set the name for the character") do |name|
         @options[:name] = name
       end

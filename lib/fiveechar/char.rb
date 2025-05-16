@@ -101,10 +101,6 @@ class Die
     die.sum_of(6, 4)
   end
 
-  def to_intermediary
-    puts "foo"
-  end
-
   private
 
   def roll

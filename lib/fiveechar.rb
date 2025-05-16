@@ -23,12 +23,12 @@ module FiveeChar
 
     if opts[:to_json]
       path = Pathname.new opts[:to_json]
-      raise "Path #{path} already exists" if path.exist?
+      raise "Path #{path} already exists" if path.exist? && !opts[:override]
 
       path.write  JSON.pretty_generate(intermediate.json)
     elsif opts[:to_pdf]
       path = Pathname.new opts[:to_pdf]
-      raise "Path #{path} already exists" if path.exist?
+      raise "Path #{path} already exists" if path.exist? && !opts[:override]
 
       typst = TypstWriter.new(intermediate).write
       tmpfile = Tempfile.new("#{opts[:name]}-5echar")

@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'autojson'
+require_relative 'inline_info'
 
 # Something like a Feat or a Spell in the World
 # this is something we render in the typst code later on.
 class Ability
 
+  # @param name [String]
+  # @param description [String]
   def initialize(name, description)
     @name = name
     @description = description
@@ -30,8 +33,17 @@ class Ability
     "
   end
 
+  # name is bad but eh...
+  # @param [String] content
+  def replace_inline_info(content)
+    content.gsub(/{@(?<kind>[a-zA-Z]+) (?<body>[^}]+)}/) do
+      match = Regexp.last_match
+      InlineInfo.new(match).to_typst
+    end
+  end
+
   def to_typst
-    in_box @description
+    in_box replace_inline_info(@description)
   end
 
   # @param [Hash] something like [ "A fluff of wind", {"type": "entries", "name": "my name", "entries": ["same thing"] ]

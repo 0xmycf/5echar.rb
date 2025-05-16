@@ -1,6 +1,10 @@
 # .rubocop.yml
 # Style/EmptyLinesAroundBody:
 #   Enabled: false
+#
+AllCops:
+  TargetRubyVersion: 3.2
+
 Style/StringLiterals:
   Enabled: false
 
